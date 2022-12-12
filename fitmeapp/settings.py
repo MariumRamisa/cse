@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'user_food_intake_details',
     'exercise',
-    'burned_cal'
+    'burned_cal',
 
 ]
 

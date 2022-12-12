@@ -10,16 +10,25 @@ from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
-class user_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin,
-                mixins.RetrieveModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin):
+class user(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMixin,
+           mixins.RetrieveModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin):
     serializer_class = userserializer
     queryset = user.objects.all()
-    lookup_field = 'id'
+    lookup_field = ['id', 'name']
 
-    def get(self, request, id=None):
+    def get(self, request, name=None):
 
-        if id:
-            return self.retrieve(request)
+        if name:
+            if name:
+                response = {
+                    "message": "User found",
+                }
+                return Response(data=response, status=status.HTTP_302_FOUND)
+            else:
+                response = {
+                    "message": "User Not found",
+                }
+                return Response(data=response, status=status.HTTP_404_NOT_FOUND)
         else:
             return self.list(request)
 
@@ -31,15 +40,14 @@ class user_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMod
             response = {
                 "message": "User Created Successfully",
             }
-
             return Response(data=response, status=status.HTTP_201_CREATED)
         response = {
             "message": "User exists",
         }
         return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, id=None):
-        return self.update(request, id)
+    def put(self, request, name=None):
+        return self.update(request, name)
 
-    def delete(self, request, id):
-        return self.destroy(request, id)
+    def delete(self, request, name):
+        return self.destroy(request, name)
