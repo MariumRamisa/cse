@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import user
+from django.contrib import messages
 from .serializers import userserializer
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
@@ -29,11 +30,13 @@ class user_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMod
             serializer.save()
             response = {
                 "message": "User Created Successfully",
-                "data": serializer.data
             }
             return Response(data=response, status=status.HTTP_201_CREATED)
         else:
-            return Response(data=serializer.data, status=status.HTTP_400_BAD_REQUEST)
+            response = {
+                "message": "user exists",
+            }
+            return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id=None):
         return self.update(request, id)

@@ -4,9 +4,6 @@ from .models import user
 
 
 class userserializer(serializers.ModelSerializer):
-    name = serializers.CharField(max_length=50)
-    email = serializers.EmailField(max_length=50)
-    password = serializers.CharField(max_length=8)
 
     class Meta:
         model = user
@@ -17,7 +14,7 @@ class userserializer(serializers.ModelSerializer):
         name_exists = user.objects.filter(name=attrs['name']).exists
         if email_exists:
             raise ValidationError("Email already exists")
-        if name_exists:
+        elif name_exists:
             raise ValidationError("Username already exists")
 
         return super().validate(attrs)
