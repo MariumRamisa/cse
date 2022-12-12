@@ -26,17 +26,17 @@ class user_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMod
     def post(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
-        if serializer.is_valid():
+        if (serializer.is_valid()):
             serializer.save()
             response = {
                 "message": "User Created Successfully",
             }
+
             return Response(data=response, status=status.HTTP_201_CREATED)
-        else:
-            response = {
-                "message": "user exists",
-            }
-            return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
+        response = {
+            "message": "User exists",
+        }
+        return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id=None):
         return self.update(request, id)
