@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import user
 from django.contrib import messages
-from .serializers import userserializer
+from .serializers import userserializer, LoginSerializer
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
@@ -10,25 +10,33 @@ from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
-class user(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMixin,
+class user(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin,
            mixins.RetrieveModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin):
     serializer_class = userserializer
     queryset = user.objects.all()
-    lookup_field = ['id', 'name']
+    lookup_field = 'name'
+    permission_classes = [IsAuthenticated]
+
+#  def get(self, request, name=None):
+    # def get(self, request):
+
+#        if name:
+    # if name:
+
+#            return self.retrieve(request)
+    # else:
+    #    response = {
+    #       "message": "User Not found",
+    #  }
+    # return Response(data=response, status=status.HTTP_404_NOT_FOUND)
+ #       else:
+ #           return self.list(request)
 
     def get(self, request, name=None):
 
         if name:
             if name:
-                response = {
-                    "message": "User found",
-                }
-                return Response(data=response, status=status.HTTP_302_FOUND)
-            else:
-                response = {
-                    "message": "User Not found",
-                }
-                return Response(data=response, status=status.HTTP_404_NOT_FOUND)
+                return self.retrieve(request)
         else:
             return self.list(request)
 
@@ -51,3 +59,19 @@ class user(generics.GenericAPIView, mixins.CreateModelMixin, mixins.ListModelMix
 
     def delete(self, request, name):
         return self.destroy(request, name)
+
+
+class LoginView(generics.GenericAPIView):
+
+    serializer_class = userserializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        response = {
+            'user': serializer.data,
+            "message": "User found",
+        }
+
+        return Response(data=response,
+                        status=status.HTTP_202_ACCEPTED)

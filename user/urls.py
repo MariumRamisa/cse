@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import user
+from .views import user, LoginView
 from user_details.views import user_detail_list
 from food.views import food_detail_list
 from nutrient_detail.views import nutrition_list
@@ -14,8 +14,9 @@ from burned_cal.views import burned_cal
 urlpatterns = [
     # user
     path('userlist/', user.as_view()),
-    #path('single_user/<int:id>/', user.as_view()),
+    path('single_user/<int:id>/', user.as_view()),
     path('single_user/<str:name>/', user.as_view()),
+    path('login/', LoginView.as_view()),
     #path('login/', views.login_api),
     #path('register/', views.register_api),
     # user details
