@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from .models import burned_cal_detail
 from .serializers import burned_calserializer
