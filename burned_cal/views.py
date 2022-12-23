@@ -2,7 +2,8 @@
 from django.shortcuts import render
 from .models import burned_cal_detail
 from .serializers import burned_calserializer
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, status
+from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -24,10 +25,31 @@ class burned_cal(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMo
             return self.list(request)
 
     def post(self, request):
-        return self.create(request)
+        data = request.data
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            data = serializer.data
+            return Response(data=data, status=status.HTTP_201_CREATED)
+        else:
+            response = {
+                "msg": "invalid data"
+            }
+            return Response(data=response, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
     def put(self, request, user_id=None):
-        return self.update(request, user_id)
+        data = request.data
+        val = burned_cal_detail.objects.get(user_id=user_id)
+        serializer = self.serializer_class(val, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            data = serializer.data
+            return Response(data=data, status=status.HTTP_202_ACCEPTED)
+        else:
+            response = {
+                "msg": "invalid data"
+            }
+            return Response(data=response, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
     def delete(self, request, user_id):
         return self.destroy(request, user_id)

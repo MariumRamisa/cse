@@ -10,11 +10,11 @@ class food_detail_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.Cr
                        mixins.RetrieveModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin):
     serializer_class = foodserializer
     queryset = foodCalories.objects.all()
-    lookup_field = ['id', 'calorie']
+    lookup_field = 'food_name'
 
-    def get(self, request, id=None):
+    def get(self, request, food_name=None):
 
-        if id:
+        if food_name:
             return self.retrieve(request)
         else:
             return self.list(request)
@@ -28,12 +28,23 @@ class food_detail_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.Cr
             return Response(data=data, status=status.HTTP_201_CREATED)
         else:
             response = {
-                "msg": "calorie can never be negative "
+                "msg": "invalid data"
             }
             return Response(data=response, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
-    def put(self, request, id=None):
-        return self.update(request, id)
+    def put(self, request, food_name=None):
+        data = request.data
+        val = foodCalories.objects.get(food_name=food_name)
+        serializer = self.serializer_class(val, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            data = serializer.data
+            return Response(data=data, status=status.HTTP_202_ACCEPTED)
+        else:
+            response = {
+                "msg": "invalid data"
+            }
+            return Response(data=response, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
-    def delete(self, request, id):
-        return self.destroy(request, id)
+    def delete(self, request, food_name=None):
+        return self.destroy(request, food_name)

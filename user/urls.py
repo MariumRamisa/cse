@@ -24,7 +24,7 @@ urlpatterns = [
     path('single_user_detail/<int:user_id>/', user_detail_list.as_view()),
     # food
     path('food_detail/', food_detail_list.as_view()),
-    path('single_food_detail/<int:id>/', food_detail_list.as_view()),
+    path('single_food/<str:food_name>/', food_detail_list.as_view()),
     # nutrition detail
     path('nutrition_list/', nutrition_list.as_view()),
     path('single_food_nutrition/<str:food_name>/', nutrition_list.as_view()),

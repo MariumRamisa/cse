@@ -17,4 +17,14 @@ class burned_calserializer(serializers.ModelSerializer):
 
     class Meta:
         model = burned_cal_detail
-        fields = ['id', 'user_id', 'date']
+        fields = '__all__'
+
+    # checking validation
+    def validate(self, data):
+        data = super(burned_calserializer, self).validate(data)
+
+        if (data.get('quantity') < 0):
+            raise serializers.ValidationError("quantity cannot be negative")
+
+        else:
+            return data
