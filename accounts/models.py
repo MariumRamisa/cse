@@ -7,6 +7,7 @@ from django.core.validators import RegexValidator
 from django.utils import timezone
 from .managers import CustomUserManager
 
+
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(('email address'), unique=True)

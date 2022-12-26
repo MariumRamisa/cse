@@ -12,12 +12,14 @@ class food_detail_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.Cr
     queryset = foodCalories.objects.all()
     lookup_field = 'food_name'
 
+# view data
     def get(self, request, food_name=None):
 
         if food_name:
             return self.retrieve(request)
         else:
             return self.list(request)
+# add data
 
     def post(self, request):
         data = request.data
@@ -31,6 +33,7 @@ class food_detail_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.Cr
                 "msg": "invalid data"
             }
             return Response(data=response, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+# update data
 
     def put(self, request, food_name=None):
         data = request.data
@@ -45,6 +48,7 @@ class food_detail_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.Cr
                 "msg": "invalid data"
             }
             return Response(data=response, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+# delete data
 
     def delete(self, request, food_name=None):
         return self.destroy(request, food_name)

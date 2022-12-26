@@ -14,11 +14,11 @@ from burned_cal.views import burned_cal
 urlpatterns = [
     # user
     path('userlist/', user.as_view()),
-    path('single_user/<int:id>/', user.as_view()),
+    #path('single_user/<int:id>/', user.as_view()),
     path('single_user/<str:name>/', user.as_view()),
     path('login/', LoginView.as_view()),
     #path('login/', views.login_api),
-    #path('register/', views.register_api),
+    path('register/', user.as_view()),
     # user details
     path('user_detail/', user_detail_list.as_view()),
     path('single_user_detail/<int:user_id>/', user_detail_list.as_view()),

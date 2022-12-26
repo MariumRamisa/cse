@@ -5,6 +5,7 @@ from .models import burned_cal_detail
 
 class burned_calserializer(serializers.ModelSerializer):
 
+    # representing values of the fields taken from another class
     def to_representation(self, instance):
         representation = super(burned_calserializer,
                                self).to_representation(instance)

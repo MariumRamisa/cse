@@ -11,6 +11,7 @@ class diet_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMod
     serializer_class = diet_plan_serializer
     queryset = diet_plan.objects.all()
     lookup_field = 'id'
+# view data
 
     def get(self, request, id=None):
 
@@ -18,12 +19,15 @@ class diet_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMod
             return self.retrieve(request)
         else:
             return self.list(request)
+# add data
 
     def post(self, request):
         return self.create(request)
+# update data
 
     def put(self, request, id=None):
         return self.update(request, id)
+# delete data
 
     def delete(self, request, id):
         return self.destroy(request, id)

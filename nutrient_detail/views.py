@@ -12,6 +12,8 @@ class nutrition_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
     queryset = nutrient_list.objects.all()
     lookup_field = 'food_name'
 
+# view data
+
     def get(self, request, food_name=None):
 
         if food_name:
@@ -19,11 +21,17 @@ class nutrition_list(generics.GenericAPIView, mixins.ListModelMixin, mixins.Crea
         else:
             return self.list(request)
 
+# add date
+
     def post(self, request):
         return self.create(request)
 
+# update data
+
     def put(self, request, food_name=None):
         return self.update(request, food_name)
+
+# delete data
 
     def delete(self, request, food_name):
         return self.destroy(request, food_name)

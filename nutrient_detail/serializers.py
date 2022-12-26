@@ -10,6 +10,8 @@ class nutritionserializer(serializers.ModelSerializer):
                   'fiber', 'sugar', 'saturated_fat', 'polyunsaturated_fat', 'monounsaturated_fat',
                   'trans_fat', 'cholestrol', 'sodium', 'potassium', 'calcium', 'vitaminA', 'vitaminC', 'iron']
 
+# representing data from another table
+
     def to_representation(self, instance):
         representation = super(foodserializer,
                                self).to_representation(instance)

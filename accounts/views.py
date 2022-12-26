@@ -1,3 +1,4 @@
+"""
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -52,3 +53,4 @@ def get_refresh_tokens(account):
         'refresh': str(refresh),
         'access': str(refresh.access_token),
     }
+"""

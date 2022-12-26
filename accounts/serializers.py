@@ -1,5 +1,5 @@
-"""
 
+"""
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth import authenticate
@@ -58,5 +58,4 @@ class LoginSerializer(serializers.Serializer):
         if CustomUser and CustomUser.is_active:
             return CustomUser
         raise AuthenticationFailed
-
 """

@@ -16,6 +16,7 @@ class burned_cal(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMo
     queryset = burned_cal_detail.objects.all()
     lookup_field = 'user_id'
 
+# view data
     def get(self, request, user_id=None):
 
         if user_id:
@@ -23,6 +24,7 @@ class burned_cal(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMo
 
         else:
             return self.list(request)
+# add data
 
     def post(self, request):
         data = request.data
@@ -36,6 +38,7 @@ class burned_cal(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMo
                 "msg": "invalid data"
             }
             return Response(data=response, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+# update data
 
     def put(self, request, user_id=None):
         data = request.data
@@ -50,6 +53,7 @@ class burned_cal(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateMo
                 "msg": "invalid data"
             }
             return Response(data=response, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+# delete data
 
     def delete(self, request, user_id):
         return self.destroy(request, user_id)

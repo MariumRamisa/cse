@@ -12,6 +12,7 @@ class exercise_detail_list(generics.GenericAPIView, mixins.ListModelMixin, mixin
     serializer_class = exerciseserializer
     queryset = exercisecal.objects.all()
     lookup_field = 'exercise_name'
+# view data
 
     def get(self, request, exercise_name=None):
 
@@ -19,6 +20,7 @@ class exercise_detail_list(generics.GenericAPIView, mixins.ListModelMixin, mixin
             return self.retrieve(request)
         else:
             return self.list(request)
+# add data
 
     def post(self, request):
         data = request.data
@@ -32,9 +34,11 @@ class exercise_detail_list(generics.GenericAPIView, mixins.ListModelMixin, mixin
                 "msg": "invalid data"
             }
             return Response(data=response, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+# update data
 
     def put(self, request, exercise_name=None):
         return self.update(request, exercise_name)
+# delete data
 
     def delete(self, request, exercise_name):
         return self.destroy(request, exercise_name)

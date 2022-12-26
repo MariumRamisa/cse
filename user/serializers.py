@@ -4,6 +4,8 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.validators import ValidationError
 from .models import user
 
+# for viewing and registering
+
 
 class userserializer(serializers.ModelSerializer):
 
@@ -19,6 +21,8 @@ class userserializer(serializers.ModelSerializer):
         print(data)
 
         return data
+
+# for login
 
 
 class LoginSerializer(serializers.Serializer):

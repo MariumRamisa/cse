@@ -4,6 +4,8 @@ from .models import user_calorie_detail
 
 class usercalorieserializer(serializers.ModelSerializer):
 
+    # representing data from another tables
+
     def to_representation(self, instance):
         representation = super(usercalorieserializer,
                                self).to_representation(instance)

@@ -7,6 +7,8 @@ class exerciseserializer(serializers.ModelSerializer):
         model = exercisecal
         fields = ['id', 'exercise_name', 'quantity', 'calorie']
 
+# checking data validation
+
     def validate(self, data):
         data = super(exerciseserializer, self).validate(data)
 

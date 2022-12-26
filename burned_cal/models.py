@@ -3,6 +3,8 @@ from user.models import user
 from exercise.models import exercisecal
 # Create your models here.
 
+# declation of fields
+
 
 class burned_cal_detail(models.Model):
     user_id = models.ForeignKey(
@@ -13,6 +15,7 @@ class burned_cal_detail(models.Model):
 
     def __str__(self):
         return self.exercise_name.exercise_name
+# caltulate the burned calorie
 
     @property
     def burned_cal(self):

@@ -1,6 +1,5 @@
-"""
 
-from django.contrib import admin
+"""from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
@@ -9,7 +8,7 @@ from .forms import CustomUserCreationform, CustomUserChangeform
 # Register your models here.
 
 
-@admin.register(CustomUser)
+# @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationform
     form = CustomUserChangeform
@@ -30,7 +29,5 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 
-admin.site.unregister(User)
 admin.site.register(CustomUser, CustomUserAdmin)
-
 """

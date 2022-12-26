@@ -31,6 +31,7 @@ class user(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMix
     # return Response(data=response, status=status.HTTP_404_NOT_FOUND)
  #       else:
  #           return self.list(request)
+# view user
 
     def get(self, request, name=None):
 
@@ -39,6 +40,7 @@ class user(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMix
                 return self.retrieve(request)
         else:
             return self.list(request)
+# add user
 
     def post(self, request):
         data = request.data
@@ -54,16 +56,22 @@ class user(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMix
         }
         return Response(data=response, status=status.HTTP_400_BAD_REQUEST)
 
+# update user
+
     def put(self, request, name=None):
         return self.update(request, name)
+
+# delete user
 
     def delete(self, request, name):
         return self.destroy(request, name)
 
+# user login
+
 
 class LoginView(generics.GenericAPIView):
 
-    serializer_class = userserializer
+    serializer_class = LoginSerializer
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)

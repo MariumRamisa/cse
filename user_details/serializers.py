@@ -4,6 +4,7 @@ from .models import user_details
 
 class user_detailserializer(serializers.ModelSerializer):
 
+    # representing data from another tables
     def to_representation(self, instance):
         representation = super(user_detailserializer,
                                self).to_representation(instance)
